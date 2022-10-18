@@ -1,4 +1,4 @@
-package selenide;
+package firstHomeTask;
 
 import com.codeborne.selenide.*;
 import static com.codeborne.selenide.Selectors.*;
@@ -12,8 +12,9 @@ public class LoginPage {
         open(url);
     }
 
-    public void login() {
+    public NewsPage login() {
         loginField.setValue(ConfProperties.getProperty("login"));
         passwordField.setValue(ConfProperties.getProperty("password")).pressEnter();
+        return new NewsPage();
     }
 }
