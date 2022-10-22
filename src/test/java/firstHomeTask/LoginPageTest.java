@@ -8,18 +8,23 @@ import static org.junit.Assert.assertTrue;
 
 public class LoginPageTest {
 
+    private LoginPage loginPage;
+    private NewsPage newsPage;
+
     @Before
     public  void init() {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
+        loginPage = new LoginPage();
+        newsPage = new NewsPage();
     }
 
     @Test
     public void testLogin() {
-        assertTrue(new LoginPage(ConfProperties.getProperty("url"))
-                .login()
-                .getNoteFiled()
-                .exists());
+        loginPage.setLogin();
+        loginPage.setPassword();
+        loginPage.submit();
+        assertTrue(newsPage.getNoteFiled().exists());
     }
 }
