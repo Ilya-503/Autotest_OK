@@ -5,16 +5,28 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage {
-    private final SelenideElement loginField = $(byId("field_email"));
-    private final SelenideElement passwordField = $(byId("field_password"));
 
-    public LoginPage(String url) {
-        open(url);
+    private static final SelenideElement loginField = $(byId("field_email"));
+    private static final SelenideElement passwordField = $(byId("field_password"));
+    private static final SelenideElement submitBtn = $(byAttribute("type", "submit"));
+
+    private static final String LOGIN = "alexkworker@mail.ru ";
+    private static final String PASSWORD = " qwerty_6543210";
+    private static final String URL = "https://ok.ru/";
+
+    public LoginPage() {
+        open(URL);
     }
 
-    public NewsPage login() {
-        loginField.setValue(ConfProperties.getProperty("login"));
-        passwordField.setValue(ConfProperties.getProperty("password")).pressEnter();
-        return new NewsPage();
+    public void setLogin() {
+        loginField.setValue(LOGIN);
+    }
+
+    public void setPassword() {
+        passwordField.setValue(PASSWORD);
+    }
+
+    public void submit() {
+        submitBtn.click();
     }
 }
