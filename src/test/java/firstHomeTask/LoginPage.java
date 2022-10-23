@@ -9,7 +9,6 @@ public class LoginPage {
     private static final SelenideElement loginField = $(byId("field_email"));
     private static final SelenideElement passwordField = $(byId("field_password"));
     private static final SelenideElement submitBtn = $(byAttribute("type", "submit"));
-    private static final SelenideElement backBtn = $(byAttribute("data-l", "t,cancel"));
     private static final SelenideElement loginErrorString =
             $x("//div[contains(@class, 'login_error')]");
 
@@ -27,10 +26,6 @@ public class LoginPage {
 
     public void submit() {
         submitBtn.click();
-    }
-
-    public SelenideElement getBackBtn() {
-        return backBtn;
     }
 
     public String getErrorString() {

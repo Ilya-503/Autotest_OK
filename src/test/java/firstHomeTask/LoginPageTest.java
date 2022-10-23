@@ -16,7 +16,7 @@ public class LoginPageTest {
     private NewsPage newsPage;
 
     private static final String LOGIN = "technoPol17";
-    private static final String PASSWORD = " technoPolis2022";
+    private static final String PASSWORD = "technoPolis2022";
     private static final String URL = "https://ok.ru/";
 
     @BeforeClass
@@ -35,6 +35,21 @@ public class LoginPageTest {
     public void testEmptyFields() {
         loginPage.submit();
         assertEquals("Введите логин", loginPage.getErrorString());
+    }
+
+    @Test
+    public void testEmptyPasswordField() {
+        loginPage.setLogin("some login");
+        loginPage.submit();
+        assertEquals("Введите пароль", loginPage.getErrorString());
+    }
+
+    @Test
+    public void testIllegalPassword() {
+        loginPage.setLogin(LOGIN);
+        loginPage.setPassword("somePassword");
+        loginPage.submit();
+        assertEquals("Неправильно указан логин и/или пароль", loginPage.getErrorString());
     }
 
     @Test
