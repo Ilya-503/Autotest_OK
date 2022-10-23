@@ -10,20 +10,18 @@ public class LoginPage {
     private static final SelenideElement passwordField = $(byId("field_password"));
     private static final SelenideElement submitBtn = $(byAttribute("type", "submit"));
 
-    private static final String LOGIN = "alexkworker@mail.ru ";
-    private static final String PASSWORD = " qwerty_6543210";
-    private static final String URL = "https://ok.ru/";
 
-    public LoginPage() {
-        open(URL);
+
+    public LoginPage(String url) {
+        open(url);
     }
 
-    public void setLogin() {
-        loginField.setValue(LOGIN);
+    public void setLogin(String login) {
+        loginField.setValue(login);
     }
 
-    public void setPassword() {
-        passwordField.setValue(PASSWORD);
+    public void setPassword(String password) {
+        passwordField.setValue(password);
     }
 
     public void submit() {
