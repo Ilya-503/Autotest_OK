@@ -10,8 +10,8 @@ public class LoginPage {
     private static final SelenideElement passwordField = $(byId("field_password"));
     private static final SelenideElement submitBtn = $(byAttribute("type", "submit"));
     private static final SelenideElement backBtn = $(byAttribute("data-l", "t,cancel"));
-
-
+    private static final SelenideElement loginErrorString =
+            $x("//div[contains(@class, 'login_error')]");
 
     public LoginPage(String url) {
         open(url);
@@ -31,5 +31,9 @@ public class LoginPage {
 
     public SelenideElement getBackBtn() {
         return backBtn;
+    }
+
+    public String getErrorString() {
+        return loginErrorString.text();
     }
 }
