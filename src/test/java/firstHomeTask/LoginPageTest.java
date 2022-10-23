@@ -1,10 +1,14 @@
 package firstHomeTask;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class LoginPageTest {
 
@@ -15,13 +19,22 @@ public class LoginPageTest {
     private static final String PASSWORD = " technoPolis2022";
     private static final String URL = "https://ok.ru/";
 
-    @Before
-    public  void init() {
+    @BeforeClass
+    public static void setUp() {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
+    }
+
+    @Before
+    public void openBrowser() {
         loginPage = new LoginPage(URL);
-        newsPage = new NewsPage();
+    }
+
+    @Test
+    public void testEmptyFields() {
+        loginPage.submit();
+        assertEquals("Введите логин", loginPage.getErrorString());
     }
 
     @Test
@@ -29,6 +42,12 @@ public class LoginPageTest {
         loginPage.setLogin(LOGIN);
         loginPage.setPassword(PASSWORD);
         loginPage.submit();
+        newsPage = new NewsPage();
         assertTrue(newsPage.getNoteFiled().exists());
+    }
+
+    @After
+    public void close() {
+        Selenide.closeWebDriver();
     }
 }
