@@ -1,10 +1,5 @@
 package Pages;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +18,7 @@ public class LoginPageTest extends BaseTest {
     @BeforeEach
     public void openBrowser() {
         loginPage = new LoginPage(URL);
+        loginPage.validate();
     }
 
     @Test
@@ -33,24 +29,27 @@ public class LoginPageTest extends BaseTest {
 
     @Test
     public void testEmptyPasswordField() {
-        loginPage.setLogin("some login");
-        loginPage.submit();
+        loginPage
+                .setLogin("illegalLogin")
+                .submit();
         assertEquals("Введите пароль", loginPage.getErrorString());
     }
 
     @Test
     public void testIllegalPassword() {
-        loginPage.setLogin(LOGIN);
-        loginPage.setPassword("somePassword");
-        loginPage.submit();
+        loginPage
+                .setLogin(LOGIN)
+                .setPassword("illegalPassword")
+                .submit();
         assertEquals("Неправильно указан логин и/или пароль", loginPage.getErrorString());
     }
 
     @Test
     public void testLogin() {
-        loginPage.setLogin(LOGIN);
-        loginPage.setPassword(PASSWORD);
-        loginPage.submit();
+        loginPage
+                .setLogin(LOGIN)
+                .setPassword(PASSWORD)
+                .submit();
         newsPage = new NewsPage();
         assertTrue(newsPage.getNoteFiled().exists());
     }
