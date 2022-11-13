@@ -3,14 +3,15 @@ package Pages;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class LoginPageTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class LoginPageTest extends BaseTest {
 
     private LoginPage loginPage;
     private NewsPage newsPage;
@@ -19,14 +20,7 @@ public class LoginPageTest {
     private static final String PASSWORD = "technoPolis2022";
     private static final String URL = "https://ok.ru/";
 
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        Configuration.browser = "chrome";
-        Configuration.driverManagerEnabled = true;
-    }
-
-    @Before
+    @BeforeEach
     public void openBrowser() {
         loginPage = new LoginPage(URL);
     }
@@ -61,8 +55,5 @@ public class LoginPageTest {
         assertTrue(newsPage.getNoteFiled().exists());
     }
 
-    @After
-    public void close() {
-        Selenide.closeWebDriver();
-    }
+
 }
