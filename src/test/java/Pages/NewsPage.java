@@ -1,4 +1,4 @@
-package firstHomeTask;
+package Pages;
 
 import com.codeborne.selenide.SelenideElement;
 
