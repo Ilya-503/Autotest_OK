@@ -1,6 +1,7 @@
-package Pages;
-
+import pages.LoginPage;
+import pages.MainPage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginPageTest extends BaseTest {
 
     private LoginPage loginPage;
-    private NewsPage newsPage;
 
     private static final String LOGIN = "technoPol17";
     private static final String PASSWORD = "technoPolis2022";
@@ -22,12 +22,14 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Вход при пустых полях")
     public void testEmptyFields() {
         loginPage.submit();
         assertEquals("Введите логин", loginPage.getErrorString());
     }
 
     @Test
+    @DisplayName("Вход про пустом поле пароля")
     public void testEmptyPasswordField() {
         loginPage
                 .setLogin("illegalLogin")
@@ -36,6 +38,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Вход при неверных данных")
     public void testIllegalPassword() {
         loginPage
                 .setLogin(LOGIN)
@@ -45,14 +48,13 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test
-    public void testLogin() {
+    @DisplayName("Вход при правильных данных")
+    public void testLegalLogin() {
         loginPage
                 .setLogin(LOGIN)
                 .setPassword(PASSWORD)
                 .submit();
-        newsPage = new NewsPage();
-        assertTrue(newsPage.getNoteFiled().exists());
+        MainPage mainPage = new MainPage();
+        assertTrue(mainPage.getNoteFiled().exists());
     }
-
-
 }

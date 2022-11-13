@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import com.codeborne.selenide.*;
 
@@ -8,11 +8,11 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage implements Loadable {
 
-    private static final SelenideElement loginContainer = $(byXpath("//*[@data-state-id='login']"));
-    private static final SelenideElement loginField = $(byId("field_email"));
-    private static final SelenideElement passwordField = $(byId("field_password"));
-    private static final SelenideElement submitBtn = $(byAttribute("type", "submit"));
-    private static final SelenideElement loginErrorString =
+    private static final SelenideElement LOGIN_CONTAINER = $(byXpath("//*[@data-state-id='login']"));
+    private static final SelenideElement LOGIN_FILED = $(byId("field_email"));
+    private static final SelenideElement PASSWORD_FIELD = $(byId("field_password"));
+    private static final SelenideElement SUBMIT_BTN = $(byAttribute("type", "submit"));
+    private static final SelenideElement LOGIN_ERR_STRING =
             $x("//div[contains(@class, 'login_error')]");
 
     public LoginPage(String url) {
@@ -20,25 +20,25 @@ public class LoginPage implements Loadable {
     }
 
     public LoginPage setLogin(String login) {
-        loginField.setValue(login);
+        LOGIN_FILED.setValue(login);
         return this;
     }
 
     public LoginPage setPassword(String password) {
-        passwordField.setValue(password);
+        PASSWORD_FIELD.setValue(password);
         return this;
     }
 
     public void submit() {
-        submitBtn.click();
+        SUBMIT_BTN.click();
     }
 
     public String getErrorString() {
-        return loginErrorString.text();
+        return LOGIN_ERR_STRING.text();
     }
 
     @Override
     public void validate() {
-        loginContainer.shouldBe(visible);
+        LOGIN_CONTAINER.shouldBe(visible);
     }
 }
