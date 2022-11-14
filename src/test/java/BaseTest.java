@@ -11,6 +11,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
+        Configuration.holdBrowserOpen = true;
     }
 
     @AfterEach

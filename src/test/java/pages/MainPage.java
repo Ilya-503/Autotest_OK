@@ -1,10 +1,9 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.apache.commons.compress.archivers.zip.UnicodePathExtraField;
+import pages.musicPage.MusicPage;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -14,7 +13,7 @@ public class MainPage implements Loadable {
     private final static SelenideElement NOTE_FIELD = $(byText("Напишите заметку"));
 
     public MainPage() {
-        upperToolBar = new UpperToolBar();
+        upperToolBar = new UpperToolBar($(byAttribute("data-l", "t,navigationToolbar")));
         validate();
     }
 

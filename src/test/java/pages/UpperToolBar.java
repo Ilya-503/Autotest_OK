@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byClassName;
@@ -8,21 +9,25 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class UpperToolBar {
 
-    private static final SelenideElement MESSAGES_BTN = $(byAttribute("data-l", "t,messages"));
-    private static final SelenideElement MUSIC_BTN = $(byAttribute("data-l", "t,music"));
+    private SelenideElement rootElem;
 
-    public UpperToolBar() {
+    private static final By MESSAGES = byAttribute("data-l", "t,messages");
+
+    private static final By MUSIC = byAttribute("data-l", "t,music");
+
+    public UpperToolBar(SelenideElement rootElem) {
+        this.rootElem = rootElem;
     }
 
     public void goToMusicPage() {
-        MUSIC_BTN.click();
+        rootElem.$(MUSIC).click();
     }
 
     public void goToDialogs() {
-        MESSAGES_BTN.click();
+        rootElem.$(MESSAGES).click();
     }
 
     public boolean isDisplayed() {
-        return $(byClassName("toolbar_c")).isDisplayed();
+        return rootElem.isDisplayed();
     }
 }
