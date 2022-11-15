@@ -27,7 +27,7 @@ public class TrackWrapper {
     }
 
     public void addTrackToLibrary() {
-        //if ($(ADD_STATUS).getAttribute("icon").equals("add")) {
+        //if ($(ADD_STATUS).getAttribute("icon").equals("add")) {  // doesn't delete trackg
         trackElem.hover().$(ADD_DEL_BTN).click();
         //}
     }

@@ -1,9 +1,7 @@
-import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pages.LoginPage;
-import pages.MainPage;
+import pages.loginPage.LoginPage;
+import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
 
 public class MusicTest extends BaseTest {
@@ -30,8 +28,6 @@ public class MusicTest extends BaseTest {
         for (var track: myTracks) {
             System.out.println(track.getTrackInfo());
         }
-
-
     }
 
 //    @AfterEach

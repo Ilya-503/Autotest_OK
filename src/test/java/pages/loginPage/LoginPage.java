@@ -1,6 +1,7 @@
-package pages;
+package pages.loginPage;
 
 import com.codeborne.selenide.*;
+import pages.Loadable;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;

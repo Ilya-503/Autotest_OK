@@ -34,7 +34,6 @@ public class MusicPage implements Loadable {
     }
 
     private void addTrack(String trackName, By rootElem) {
-        $(rootElem).shouldBe(visible);
         SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]"));
         List<TrackWrapper> allTracks = getTracks(rootElem);
         for (var track: allTracks) {
@@ -48,6 +47,7 @@ public class MusicPage implements Loadable {
     }
 
     public List<TrackWrapper> getTracks(By rootElem) {
+        $(rootElem).shouldBe(visible);
         List<TrackWrapper> trackList = new ArrayList<>();
         ElementsCollection trackElemColl = $(rootElem).$$(byTagName("wm-track"));
         for (var elem : trackElemColl) {
@@ -62,7 +62,7 @@ public class MusicPage implements Loadable {
     }
 
     public List<TrackWrapper> getMyTracks() {
-        return getTracks(byAttribute("data-l", "t,tracks"));
+        return getTracks(byXpath("//wm-tracks-list"));
     }
 
     public void clearLibrary() {
