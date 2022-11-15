@@ -22,4 +22,8 @@ public class LeftMusicPanel {
         this.rootElem = rootElem;
     }
 
+    public void goToLibrary() {
+        $(MY_MSC_BTN).click();
+    }
+
 }

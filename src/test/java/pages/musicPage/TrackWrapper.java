@@ -16,6 +16,7 @@ public class TrackWrapper {
     private static final By DURATION = byClassName("duration");
     private static final By ADD_DEL_BTN = byAttribute("data-l", "t,add");
     private static final By OPTIONS = byAttribute("data-l", "t,track-actions");
+    private static final By ADD_STATUS = byTagName("wm-icon");
 
     public TrackWrapper(SelenideElement trackElem) {
         this.trackElem = trackElem;
@@ -25,4 +26,9 @@ public class TrackWrapper {
         return trackElem.$(INFO).text();
     }
 
+    public void addTrackToLibrary() {
+        //if ($(ADD_STATUS).getAttribute("icon").equals("add")) {
+        trackElem.hover().$(ADD_DEL_BTN).click();
+        //}
+    }
 }

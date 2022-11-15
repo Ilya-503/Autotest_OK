@@ -26,6 +26,11 @@ public class MainPage implements Loadable {
         return new MusicPage();
     }
 
+//    public MessagePage goToDialogs() {
+//        upperToolBar.goToDialogs();
+//        return new MessagePage
+//    }
+
     @Override
     public void validate() {
         upperToolBar.isDisplayed();

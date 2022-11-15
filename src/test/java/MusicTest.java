@@ -1,12 +1,10 @@
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.musicPage.MusicPage;
-
-import static com.codeborne.selenide.Selectors.byAttribute;
-import static com.codeborne.selenide.Selectors.byTagName;
-import static com.codeborne.selenide.Selenide.$;
 
 public class MusicTest extends BaseTest {
 
@@ -17,14 +15,32 @@ public class MusicTest extends BaseTest {
                 .setPassword("technoPolis2022")
                 .submit();
     }
+
     @Test
     public void test() {
         MusicPage musicPage = new MainPage().goToMusicPage();
-        var tracks =
-                musicPage.getTracks($(byAttribute("data-l", "t,top_tracks_list")));
-        for (var el: tracks) {
-            System.out.println(el.getTrackInfo());
+        musicPage.findTrack("Эд ширан shape");
+        musicPage.addTrackToLibrary("Shape of You");
+        musicPage.findTrack("Градусы");
+        musicPage.addTrackToLibrary("Голая");
+        musicPage.findTrack("Ленинград");
+        musicPage.addTrackToLibrary("Вояж");
+        musicPage.goToLibrary();
+        var myTracks = musicPage.getMyTracks();
+        for (var track: myTracks) {
+            System.out.println(track.getTrackInfo());
         }
+
+
     }
 
+//    @AfterEach
+//    public void clearLibrary() {
+//        MusicPage ms = new MusicPage();
+//        ms.goToLibrary();
+//        WebDriverRunner.closeWebDriver();
+//    }
+
 }
+
+// prepareToTest -> go to music page

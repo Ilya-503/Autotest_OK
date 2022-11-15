@@ -1,6 +1,13 @@
 package pages.musicPage;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Keys;
+
+import java.awt.*;
+import java.security.Key;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -38,7 +45,11 @@ public class UpperMusicToolBar {
     }
 
     public void findTrack(String trackName) {
-        INPUT_FIELD.setValue(trackName).pressEnter();
+        INPUT_FIELD.setValue(trackName);
+        try {
+            Thread.sleep(500);     // 'search' icon changes too fast :(
+        } catch (Exception e) {}
+        INPUT_FIELD.pressEnter();
     }
 
     public void clearSearchField() {
