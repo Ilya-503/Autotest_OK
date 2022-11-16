@@ -18,9 +18,8 @@ public class TrackWrapper {
     private static final By ARTIST_ELEM = byAttribute("data-l", "t,artist");
     private static final By DURATION_ELEM = byClassName("duration");
     private static final By ADD_BTN = byAttribute("data-l", "t,add");
-    private static final By REMOVE_BTN = byAttribute("data-l", "remove_track");
+    private static final By REMOVE_BTN = byAttribute("data-tsid", "remove_track");
     private static final By OPTIONS_BTN = byAttribute("data-l", "t,track-actions");
-    private static final By ADD_STATUS_ELEM = byTagName("wm-icon");
 
     private String title, artist;
     private int duration;

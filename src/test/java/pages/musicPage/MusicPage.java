@@ -67,7 +67,7 @@ public class MusicPage implements Loadable {
     }
 
     public void clearLibrary() { // delete track & albums
-        List<TrackWrapper> myTracks = getTracks(byAttribute("data-l", "t,tracks"));
+        List<TrackWrapper> myTracks = getMyTracks();
         for (var track: myTracks) {
             track.removeTrackFromLibrary();
         }

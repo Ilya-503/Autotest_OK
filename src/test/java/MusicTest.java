@@ -30,9 +30,9 @@ public class MusicTest extends BaseTest {
     public void test() {
         List<TrackWrapper> expectedTracks = new ArrayList<>();
         Map<String, String> tracksInfo = new HashMap<>();
-        tracksInfo.put("Эд ширан shape", "Shape of You");
         tracksInfo.put("Градусы", "Голая");
         tracksInfo.put("Ленинград", "Вояж");
+        tracksInfo.put("arctic monkeys", "Do I");
 
         for (var elem: tracksInfo.entrySet()) {
             musicPage.findTrack(elem.getKey());
@@ -43,9 +43,7 @@ public class MusicTest extends BaseTest {
             );
         }
         musicPage.goToLibrary();
-       // assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks());
-
-
+        assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks());
     }
 
     @AfterEach

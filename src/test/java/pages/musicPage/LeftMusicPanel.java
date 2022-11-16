@@ -23,7 +23,7 @@ public class LeftMusicPanel {
     }
 
     public void goToLibrary() {
-        $(MY_MSC_BTN).click();
+        rootElem.$(MY_MSC_BTN).click();
     }
 
 }
