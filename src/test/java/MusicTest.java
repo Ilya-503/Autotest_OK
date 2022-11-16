@@ -3,6 +3,15 @@ import org.junit.jupiter.api.Test;
 import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
+import pages.musicPage.TrackWrapper;
+
+import javax.sound.midi.Track;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MusicTest extends BaseTest {
 
@@ -17,17 +26,19 @@ public class MusicTest extends BaseTest {
     @Test
     public void test() {
         MusicPage musicPage = new MainPage().goToMusicPage();
-        musicPage.findTrack("Эд ширан shape");
-        musicPage.addTrackToLibrary("Shape of You");
-        musicPage.findTrack("Градусы");
-        musicPage.addTrackToLibrary("Голая");
-        musicPage.findTrack("Ленинград");
-        musicPage.addTrackToLibrary("Вояж");
-        musicPage.goToLibrary();
-        var myTracks = musicPage.getMyTracks();
-        for (var track: myTracks) {
-            System.out.println(track.getTrackInfo());
+        List<Track> expectedTracks = new ArrayList<>();
+        Map<String, String> tracksName = new HashMap<>();
+        tracksName.put("Эд ширан shape", "Shape of You");
+        tracksName.put("Градусы", "Голая");
+        tracksName.put("Ленинград", "Вояж");
+
+        for (var trackAuthor: tracksName.keySet()) {
+            musicPage.findTrack(trackAuthor);
+            musicPage.addTrackToLibrary(tracksName.get(trackAuthor));
+            expectedTracks.add(musicPage.)
         }
+
+        musicPage.goToLibrary();
     }
 
 //    @AfterEach
@@ -40,3 +51,4 @@ public class MusicTest extends BaseTest {
 }
 
 // prepareToTest -> go to music page
+// write matcher to compare tracks
