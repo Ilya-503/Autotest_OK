@@ -29,21 +29,22 @@ public class MusicPage implements Loadable {
         upperMusicToolBar.findTrack(trackName);
     }
 
-    public void addTrackToLibrary(String trackName) {
-        addTrack(trackName, byXpath("//wm-tracks-list"));
+    public TrackWrapper addTrackToLibrary(String trackName) {
+        return addTrack(trackName, byAttribute("data-l", "t,tab-tracks"));
     }
 
-    private void addTrack(String trackName, By rootElem) {
+    private TrackWrapper addTrack(String trackName, By rootElem) {
         SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]"));
         List<TrackWrapper> allTracks = getTracks(rootElem);
         for (var track: allTracks) {
-            if (track.getTrackInfo().contains(trackName)) {
+            if (track.getTitle().contains(trackName)) {
                 track.addTrackToLibrary();
                 addedMsg.shouldBe(visible);
                 addedMsg.$(byAttribute("data-l", "t,close")).click();
-                break;
+                return track;
             }
         }
+        return null;
     }
 
     public List<TrackWrapper> getTracks(By rootElem) {
@@ -65,8 +66,12 @@ public class MusicPage implements Loadable {
         return getTracks(byXpath("//wm-tracks-list"));
     }
 
-    public void clearLibrary() {
-
+    public void clearLibrary() { // delete track & albums
+        List<TrackWrapper> myTracks = getTracks(byAttribute("data-l", "t,tracks"));
+        for (var track: myTracks) {
+            track.removeTrackFromLibrary();
+        }
+        // delete albums
     }
 
     public void deleteTrackFromLibrary(String trackName) {

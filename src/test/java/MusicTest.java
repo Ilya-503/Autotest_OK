@@ -1,3 +1,6 @@
+import com.codeborne.selenide.WebDriverRunner;
+import com.google.common.collect.Lists;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.loginPage.LoginPage;
@@ -6,14 +9,13 @@ import pages.musicPage.MusicPage;
 import pages.musicPage.TrackWrapper;
 
 import javax.sound.midi.Track;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MusicTest extends BaseTest {
+
+    private MusicPage musicPage;
 
     @BeforeEach
     public void prepareTest() {
@@ -21,32 +23,37 @@ public class MusicTest extends BaseTest {
                 .setLogin("technoPol17")
                 .setPassword("technoPolis2022")
                 .submit();
+        musicPage = new MainPage().goToMusicPage();
     }
 
     @Test
     public void test() {
-        MusicPage musicPage = new MainPage().goToMusicPage();
-        List<Track> expectedTracks = new ArrayList<>();
-        Map<String, String> tracksName = new HashMap<>();
-        tracksName.put("Эд ширан shape", "Shape of You");
-        tracksName.put("Градусы", "Голая");
-        tracksName.put("Ленинград", "Вояж");
+        List<TrackWrapper> expectedTracks = new ArrayList<>();
+        Map<String, String> tracksInfo = new HashMap<>();
+        tracksInfo.put("Эд ширан shape", "Shape of You");
+        tracksInfo.put("Градусы", "Голая");
+        tracksInfo.put("Ленинград", "Вояж");
 
-        for (var trackAuthor: tracksName.keySet()) {
-            musicPage.findTrack(trackAuthor);
-            musicPage.addTrackToLibrary(tracksName.get(trackAuthor));
-            expectedTracks.add(musicPage.)
+        for (var elem: tracksInfo.entrySet()) {
+            musicPage.findTrack(elem.getKey());
+            expectedTracks.add(
+                    musicPage.addTrackToLibrary(
+                            elem.getValue()
+                    )
+            );
         }
-
         musicPage.goToLibrary();
+       // assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks());
+
+
     }
 
-//    @AfterEach
-//    public void clearLibrary() {
-//        MusicPage ms = new MusicPage();
-//        ms.goToLibrary();
-//        WebDriverRunner.closeWebDriver();
-//    }
+    @AfterEach
+    public void clearLibrary() {
+        musicPage.goToLibrary();
+        musicPage.clearLibrary();
+        // WebDriverRunner.closeWebDriver();
+    }
 
 }
 

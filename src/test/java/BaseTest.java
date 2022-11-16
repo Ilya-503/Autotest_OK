@@ -12,6 +12,7 @@ public class BaseTest {
         Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
         Configuration.holdBrowserOpen = true;
+        // Configuration.timeout = 6_000;
     }
 
     @AfterEach

@@ -39,15 +39,15 @@ public class UpperMusicToolBar {
     }
 
     public void findTrack(String trackName) {
-        $(INPUT_FIELD).setValue(trackName);
+        rootElem.$(INPUT_FIELD).setValue(trackName);
         try {
             Thread.sleep(500);     // 'search' icon changes too fast :(
         } catch (Exception e) {}
-        $(INPUT_FIELD).pressEnter();
+        rootElem.$(INPUT_FIELD).pressEnter();
     }
 
     public void clearSearchField() {
-        $(INPUT_FIELD).clear();
+        rootElem.$(INPUT_FIELD).clear();
     }
 }
 

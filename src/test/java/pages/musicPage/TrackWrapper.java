@@ -13,33 +13,56 @@ public class TrackWrapper {
 
     private  SelenideElement trackElem;
 
-    private static final By INFO_ELEM = byTagName("wm-card-details"); // name + author
+    // private static final By INFO_ELEM = byTagName("wm-card-details"); // name + author
+    private static final By TITLE_ELEM = byAttribute("data-l", "t,title");
+    private static final By ARTIST_ELEM = byAttribute("data-l", "t,artist");
     private static final By DURATION_ELEM = byClassName("duration");
-    private static final By ADD_DEL_BTN = byAttribute("data-l", "t,add");
+    private static final By ADD_BTN = byAttribute("data-l", "t,add");
+    private static final By REMOVE_BTN = byAttribute("data-l", "remove_track");
     private static final By OPTIONS_BTN = byAttribute("data-l", "t,track-actions");
     private static final By ADD_STATUS_ELEM = byTagName("wm-icon");
 
-    private final Track track;
+    private String title, artist;
+    private int duration;
 
     public TrackWrapper(SelenideElement trackElem) {
         this.trackElem = trackElem;
-        List<String> info = Arrays.stream($(INFO_ELEM).text().split("\\n")).toList();
-        track = new Track(info.get(0), info.get(1), $(DURATION_ELEM).text());
-    }
-
-    public String getTrackInfo() {
-        return trackElem.$(INFO_ELEM).text();
+        title = trackElem.$(TITLE_ELEM).text();
+        artist = trackElem.$(ARTIST_ELEM).text();
+        int[] durationInfo = Arrays.stream(trackElem.$(DURATION_ELEM)
+                .text().split(":"))
+                .mapToInt(Integer::parseInt).toArray();
+        duration = durationInfo[0] * 60 + durationInfo[1];
     }
 
     public void addTrackToLibrary() {
-        $(ADD_DEL_BTN).click();      // the same btn to delete from lib, but doesn't work
+        trackElem.hover().$(ADD_BTN).click();      // the same btn to delete from lib, but doesn't work
     }
 
-    public void deleteTrackFromLibrary() {
-        // TODO
+
+    public void removeTrackFromLibrary() {
+        trackElem.hover().$(REMOVE_BTN).click();
     }
 
-    public Track getTrack() {
-        return track;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null || !(obj instanceof TrackWrapper))
+            return false;
+        TrackWrapper oth = (TrackWrapper) obj;
+        return oth.title.equals(title) && oth.artist.equals(artist) && oth.duration == duration;
     }
 }
