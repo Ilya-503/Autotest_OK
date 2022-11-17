@@ -2,7 +2,6 @@ package pages.mainPage;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.Loadable;
-import pages.mainPage.UpperToolBar;
 import pages.musicPage.MusicPage;
 
 import static com.codeborne.selenide.Selectors.byAttribute;

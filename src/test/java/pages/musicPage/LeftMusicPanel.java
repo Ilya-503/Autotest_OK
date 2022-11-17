@@ -1,9 +1,12 @@
 package pages.musicPage;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selectors.byAttribute;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LeftMusicPanel {
@@ -24,6 +27,22 @@ public class LeftMusicPanel {
 
     public void goToLibrary() {
         rootElem.$(MY_MSC_BTN).click();
+    }
+
+    public void goToAlbums() {
+        rootElem.$(MSC_ALBUMS_BTN).click();
+    }
+
+    public ElementsCollection getMyAlbums() {
+
+        if (!$(byClassName("submenu")).isDisplayed()) {
+            $(MY_MSC_BTN).click();
+        }
+        return rootElem.$$(byAttribute("data-tsid", "playlist_item"));
+    }
+
+    public void goToFirstLibraryAlbum() {
+        rootElem.$(byAttribute("data-tsid", "playlist_item")).click();
     }
 
 }

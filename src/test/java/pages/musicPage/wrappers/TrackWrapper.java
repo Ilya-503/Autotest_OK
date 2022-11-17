@@ -1,19 +1,13 @@
-package pages.musicPage;
+package pages.musicPage.wrappers;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
 import java.util.Arrays;
-import java.util.List;
 
 import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.$;
 
 public class TrackWrapper {
 
-    private  SelenideElement trackElem;
-
-    // private static final By INFO_ELEM = byTagName("wm-card-details"); // name + author
     private static final By TITLE_ELEM = byAttribute("data-l", "t,title");
     private static final By ARTIST_ELEM = byAttribute("data-l", "t,artist");
     private static final By DURATION_ELEM = byClassName("duration");
@@ -21,8 +15,9 @@ public class TrackWrapper {
     private static final By REMOVE_BTN = byAttribute("data-tsid", "remove_track");
     private static final By OPTIONS_BTN = byAttribute("data-l", "t,track-actions");
 
-    private String title, artist;
-    private int duration;
+    private final SelenideElement trackElem;
+    private final String title, artist;
+    private final int duration;
 
     public TrackWrapper(SelenideElement trackElem) {
         this.trackElem = trackElem;

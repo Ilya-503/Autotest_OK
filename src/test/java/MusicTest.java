@@ -1,17 +1,13 @@
-import com.codeborne.selenide.WebDriverRunner;
 import com.google.common.collect.Lists;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
-import pages.musicPage.TrackWrapper;
+import pages.musicPage.wrappers.TrackWrapper;
 
-import javax.sound.midi.Track;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicTest extends BaseTest {
 
@@ -27,7 +23,8 @@ public class MusicTest extends BaseTest {
     }
 
     @Test
-    public void test() {
+    @DisplayName("Проверка работоспособности добавления треков в библиотеку")
+    public void addTracksToLibrary() {
         List<TrackWrapper> expectedTracks = new ArrayList<>();
         Map<String, String> tracksInfo = new HashMap<>();
         tracksInfo.put("Градусы", "Голая");
@@ -46,8 +43,26 @@ public class MusicTest extends BaseTest {
         assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks());
     }
 
+    @Test
+    public void addAlbumToLibrary() {
+        musicPage.goToAlbums();
+        musicPage.goToFirstAlbumAndAddIt();
+        var expectedTracks = musicPage.getTracks();
+        String expectedTitle = musicPage.getAlbumTitle();
+        int expectedTracksAmount = musicPage.getAlbumTracksAmount();
+        musicPage.goToLibrary();
+        musicPage.goToFirstLibraryAlbum();
+
+        assertAll(
+                () -> assertEquals(expectedTitle, musicPage.getAlbumTitle()),
+                () -> assertEquals(expectedTracksAmount, musicPage.getAlbumTracksAmount()),
+                () -> assertEquals(expectedTracks, musicPage.getTracks())
+        );
+    }
+
     @AfterEach
     public void clearLibrary() {
+        musicPage.goToLibrary();
         musicPage.goToLibrary();
         musicPage.clearLibrary();
         // WebDriverRunner.closeWebDriver();
