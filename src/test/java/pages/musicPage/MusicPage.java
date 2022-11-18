@@ -4,11 +4,12 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import pages.Loadable;
+import pages.musicPage.pageElements.UpperMusicToolBar;
+import pages.musicPage.wrappers.TrackWrapper;
 import pages.musicPage.factories.AlbumPanelFactory;
 import pages.musicPage.pageElements.LeftMusicPanel;
 import pages.musicPage.pageElements.OtherAlbumPanel;
-import pages.musicPage.pageElements.UpperMusicToolBar;
-import pages.musicPage.wrappers.TrackWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,14 @@ public class MusicPage implements Loadable {
 
     private static final SelenideElement MSC_PAGE_CONTAINER = $(byClassName("page-container"));
 
+    /**
+     * Левая панель с кнопками "Популярное", "Моя музыка" и т.д.
+     */
     private static LeftMusicPanel leftMusicPanel;
+
+    /**
+     * Верхний тул бар - взаимодействие с треками и альбомами
+     */
     private static UpperMusicToolBar upperMusicToolBar;
 
     public MusicPage() {
@@ -38,6 +46,9 @@ public class MusicPage implements Loadable {
         return addTrack(trackName);
     }
 
+    /**
+     * @return все треки со страницы
+     */
     public List<TrackWrapper> getTracks() {
         By rootElem = byTagName("wm-tracks-list");
         List<TrackWrapper> trackList = new ArrayList<>();
@@ -83,12 +94,15 @@ public class MusicPage implements Loadable {
         return AlbumPanelFactory.getAlbumPanel().getTracksAmount();
     }
 
+    /**
+     * Заходит на страницу первого альбома в библиотеке
+     */
     public void goToFirstLibraryAlbum() {
         leftMusicPanel.goToFirstLibraryAlbum();
     }
 
     private TrackWrapper addTrack(String trackName) {
-        SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]"));
+        SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]")); // msg - трек был добавлен
         List<TrackWrapper> allTracks = getTracks();
         for (var track: allTracks) {
             if (track.getTitle().contains(trackName)) {

@@ -1,6 +1,6 @@
+import com.codeborne.selenide.Selenide;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.*;
-import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
 import pages.musicPage.wrappers.TrackWrapper;
@@ -12,12 +12,9 @@ public class MusicPageTest extends BaseTest {
 
     private MusicPage musicPage;
 
-    @BeforeEach // WRITE STEP TO LOGIN FOR MUSIC & MSG TESTS
+    @BeforeEach
     public void prepareTest() {
-        new LoginPage("https://ok.ru/")
-                .setLogin("technoPol17")
-                .setPassword("technoPolis2022")
-                .submit();
+        Step.logIn();
         musicPage = new MainPage().goToMusicPage();
     }
 
@@ -64,9 +61,8 @@ public class MusicPageTest extends BaseTest {
     @AfterEach
     public void clearLibrary() {
         musicPage.goToLibrary();
-        musicPage.goToLibrary();
         musicPage.clearLibrary();
-        // WebDriverRunner.closeWebDriver();
+        Selenide.closeWebDriver();
     }
 }
 

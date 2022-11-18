@@ -1,8 +1,11 @@
 package pages.messagePage;
 
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
 import pages.Loadable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
@@ -13,9 +16,10 @@ public class MessagePage implements Loadable {
     private static final By CHATS_LIST = byAttribute("data-tsid", "conversation_list");
     private static final By INPUTE_FIELD = byAttribute("data-tsid", "write_msg_input");
     private static final By DIALOG_PANEL = byTagName("msg-message-list");
-    private static final By OPTIONS_BTN = byAttribute("data-l", "t,messageActionmore");
-    private static final By DEL_MSG_BTN = byAttribute("data-tsid", "remove_msg_button");
-    private static final By EDIT_MSG_BTN = byAttribute("data-tsid", "edit_msg_button");
+    private static final By EMPTY_DIALOG_WRAP = byClassName("welcome-chat-text");
+    private static final By CHAT_OPTIONS_BTN = byAttribute("data-tsid", "chat_info_button");
+    private static final By CLEAR_CHAT_BTN = byAttribute("data-tsid", "clear-chat-history-btn");
+    private static final By SUBMIT_BTN = byAttribute("data-tsid", "confirm-primary");
 
     public MessagePage() {
         validate();
@@ -29,20 +33,44 @@ public class MessagePage implements Loadable {
         $(INPUTE_FIELD).setValue(message).pressEnter();
     }
 
-    public void deleteMessageWithContentForEveryone(String content) {
-        $(DIALOG_PANEL).shouldBe(visible);
-        $(DIALOG_PANEL)
-                .$(withTextCaseInsensitive(content))
-                .hover();
-        $(DIALOG_PANEL).$(OPTIONS_BTN).hover().hover();
-        $(DEL_MSG_BTN).click();
+    public int countMessages() {
+        return getAllMessages().size();
+    }
 
-        SelenideElement forEveryoneCheck =
-                $(byAttribute("data-tsid", "checkbox_remove_all"));
-        if (!forEveryoneCheck.isSelected()) {
-            forEveryoneCheck.click();
+    public void deleteMessageWithContentForEveryone(String content) {
+        var allMessages = getAllMessages();
+        for (var msg: allMessages) {
+            if (msg.getText().contains(content)) {
+                msg.deleteMessage();
+                Selenide.refresh();
+                break;
+            }
         }
-        $(byAttribute("data-tsid", "confirm-primary")).click();
+    }
+
+    public boolean isEmptyDialog() {
+        return $(EMPTY_DIALOG_WRAP).isDisplayed();
+    }
+
+    public void removeAllMessages() {
+        $(CHAT_OPTIONS_BTN).click();
+        $(CLEAR_CHAT_BTN).click();
+        $(SUBMIT_BTN).click();
+    }
+
+    private List<MessageWrapper> getAllMessages() {
+        List<MessageWrapper> allMessages = new ArrayList<>();
+        if (isEmptyDialog()) {
+            return allMessages;
+        }
+        ElementsCollection msgElems =
+                $(DIALOG_PANEL).$$(byAttribute("data-tsid", "message_root"));
+        System.out.println(msgElems.size());
+        for (var elem: msgElems) {
+            System.out.println(elem.text());
+            allMessages.add(new MessageWrapper(elem));
+        }
+        return allMessages;
     }
 
     @Override
