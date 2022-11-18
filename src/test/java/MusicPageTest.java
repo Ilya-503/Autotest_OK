@@ -12,7 +12,7 @@ public class MusicPageTest extends BaseTest {
 
     private MusicPage musicPage;
 
-    @BeforeEach
+    @BeforeEach // WRITE STEP TO LOGIN FOR MUSIC & MSG TESTS
     public void prepareTest() {
         new LoginPage("https://ok.ru/")
                 .setLogin("technoPol17")

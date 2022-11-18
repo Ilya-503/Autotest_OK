@@ -2,6 +2,7 @@ package pages.mainPage;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.Loadable;
+import pages.messagePage.MessagePage;
 import pages.musicPage.MusicPage;
 
 import static com.codeborne.selenide.Selectors.byAttribute;
@@ -27,10 +28,10 @@ public class MainPage implements Loadable {
         return new MusicPage();
     }
 
-//    public MessagePage goToDialogs() {
-//        upperToolBar.goToDialogs();
-//        return new MessagePage
-//    }
+    public MessagePage goToDialogs() {
+        upperToolBar.goToDialogs();
+        return new MessagePage();
+    }
 
     @Override
     public void validate() {

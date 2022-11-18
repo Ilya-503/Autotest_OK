@@ -20,7 +20,6 @@ public class LoginPageTest extends BaseTest {
     @BeforeEach
     public void openBrowser() {
         loginPage = new LoginPage(URL);
-        loginPage.validate();
     }
 
     @DisplayName("Вход при пустых полях")

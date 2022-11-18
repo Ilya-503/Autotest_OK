@@ -18,6 +18,7 @@ public class LoginPage implements Loadable {
 
     public LoginPage(String url) {
         open(url);
+        validate();
     }
 
     public LoginPage setLogin(String login) {
