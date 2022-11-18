@@ -1,3 +1,5 @@
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,18 +23,18 @@ public class LoginPageTest extends BaseTest {
         loginPage.validate();
     }
 
-    @Test
     @DisplayName("Вход при пустых полях")
     public void testEmptyFields() {
         loginPage.submit();
         assertEquals("Введите логин", loginPage.getErrorString());
     }
 
-    @Test
-    @DisplayName("Вход про пустом поле пароля")
-    public void testEmptyPasswordField() {
+    @DisplayName("Вход при пустом поле пароля")
+    @ParameterizedTest
+    @ValueSource(strings = {"someLogin", LOGIN})
+    public void testEmptyPasswordField(String login) {
         loginPage
-                .setLogin("illegalLogin")
+                .setLogin(login)
                 .submit();
         assertEquals("Введите пароль", loginPage.getErrorString());
     }
@@ -42,7 +44,7 @@ public class LoginPageTest extends BaseTest {
     public void testIllegalPassword() {
         loginPage
                 .setLogin(LOGIN)
-                .setPassword("illegalPassword")
+                .setPassword("password")
                 .submit();
         assertEquals("Неправильно указан логин и/или пароль", loginPage.getErrorString());
     }

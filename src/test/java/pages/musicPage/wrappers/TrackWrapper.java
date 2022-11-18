@@ -31,9 +31,10 @@ public class TrackWrapper {
     }
 
     public void addTrackToLibrary() {
-        trackElem.hover().$(ADD_BTN).click();      // the same btn to delete from lib, but doesn't work
-    }
+        trackElem.hover().$(ADD_BTN).click();
 
+
+    }
 
     public void removeTrackFromLibrary() {
         trackElem.hover().$(REMOVE_BTN).click();

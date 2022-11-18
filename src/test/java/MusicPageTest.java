@@ -4,12 +4,11 @@ import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
 import pages.musicPage.wrappers.TrackWrapper;
-
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MusicTest extends BaseTest {
+public class MusicPageTest extends BaseTest {
 
     private MusicPage musicPage;
 
@@ -44,12 +43,14 @@ public class MusicTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Проверка добавления альбома в библиотеку")
     public void addAlbumToLibrary() {
         musicPage.goToAlbums();
         musicPage.goToFirstAlbumAndAddIt();
         var expectedTracks = musicPage.getTracks();
         String expectedTitle = musicPage.getAlbumTitle();
         int expectedTracksAmount = musicPage.getAlbumTracksAmount();
+
         musicPage.goToLibrary();
         musicPage.goToFirstLibraryAlbum();
 
@@ -67,8 +68,5 @@ public class MusicTest extends BaseTest {
         musicPage.clearLibrary();
         // WebDriverRunner.closeWebDriver();
     }
-
 }
 
-// prepareToTest -> go to music page
-// write matcher to compare tracks
