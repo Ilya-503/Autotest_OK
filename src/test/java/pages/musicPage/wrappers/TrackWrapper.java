@@ -4,7 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import java.util.Arrays;
 
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selectors.byAttribute;
+import static com.codeborne.selenide.Selectors.byClassName;
 
 public class TrackWrapper {
 

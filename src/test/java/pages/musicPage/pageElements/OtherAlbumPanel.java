@@ -1,6 +1,7 @@
-package pages.musicPage;
+package pages.musicPage.pageElements;
 
 import org.openqa.selenium.By;
+import pages.musicPage.factories.AlbumPanel;
 
 import static com.codeborne.selenide.Selectors.byAttribute;
 

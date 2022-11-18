@@ -1,4 +1,6 @@
-package pages.musicPage;
+package pages.musicPage.pageElements;
+
+import pages.musicPage.factories.AlbumPanel;
 
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byClassName;

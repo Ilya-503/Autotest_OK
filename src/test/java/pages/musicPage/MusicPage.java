@@ -1,13 +1,14 @@
 package pages.musicPage;
 
-import com.beust.ah.A;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.impl.CollectionElement;
 import org.openqa.selenium.By;
 import pages.Loadable;
+import pages.musicPage.factories.AlbumPanelFactory;
+import pages.musicPage.pageElements.LeftMusicPanel;
+import pages.musicPage.pageElements.OtherAlbumPanel;
+import pages.musicPage.pageElements.UpperMusicToolBar;
 import pages.musicPage.wrappers.TrackWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,21 +35,7 @@ public class MusicPage implements Loadable {
     }
 
     public TrackWrapper addTrackToLibrary(String trackName) {
-        return addTrack(trackName, byAttribute("data-l", "t,tab-tracks"));
-    }
-
-    private TrackWrapper addTrack(String trackName, By rootElem) {
-        SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]"));
-        List<TrackWrapper> allTracks = getTracks();
-        for (var track: allTracks) {
-            if (track.getTitle().contains(trackName)) {
-                track.addTrackToLibrary();
-                addedMsg.shouldBe(visible);
-                addedMsg.$(byAttribute("data-l", "t,close")).click();
-                return track;
-            }
-        }
-        return null;
+        return addTrack(trackName);
     }
 
     public List<TrackWrapper> getTracks() {
@@ -78,7 +65,6 @@ public class MusicPage implements Loadable {
 
     public List<TrackWrapper> getMyTracks() {
         if ($(byAttribute("data-tsid", "empty_wrapper")).exists()) {
-            System.out.println("There");
             return new ArrayList<>();
         }
         return getTracks();
@@ -87,6 +73,32 @@ public class MusicPage implements Loadable {
     public void clearLibrary() {
         removeMyTracks();
         removeMyAlbums();
+    }
+
+    public String getAlbumTitle() {
+        return AlbumPanelFactory.getAlbumPanel().getTitle();
+    }
+
+    public int getAlbumTracksAmount() {
+        return AlbumPanelFactory.getAlbumPanel().getTracksAmount();
+    }
+
+    public void goToFirstLibraryAlbum() {
+        leftMusicPanel.goToFirstLibraryAlbum();
+    }
+
+    private TrackWrapper addTrack(String trackName) {
+        SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]"));
+        List<TrackWrapper> allTracks = getTracks();
+        for (var track: allTracks) {
+            if (track.getTitle().contains(trackName)) {
+                track.addTrackToLibrary();
+                addedMsg.shouldBe(visible);
+                addedMsg.$(byAttribute("data-l", "t,close")).click();
+                return track;
+            }
+        }
+        return null;
     }
 
     private void removeMyTracks() {
@@ -102,18 +114,6 @@ public class MusicPage implements Loadable {
             myAlbums.get(i).click();
             AlbumPanelFactory.getAlbumPanel().removeAlbum();
         }
-    }
-
-    public String getAlbumTitle() {
-        return AlbumPanelFactory.getAlbumPanel().getTitle();
-    }
-
-    public int getAlbumTracksAmount() {
-        return AlbumPanelFactory.getAlbumPanel().getTracksAmount();
-    }
-
-    public void goToFirstLibraryAlbum() {
-        leftMusicPanel.goToFirstLibraryAlbum();
     }
 
     @Override

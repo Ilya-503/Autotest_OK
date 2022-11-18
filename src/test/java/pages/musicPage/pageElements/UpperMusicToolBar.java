@@ -1,12 +1,12 @@
-package pages.musicPage;
+package pages.musicPage.pageElements;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selectors.byAttribute;
+import static com.codeborne.selenide.Selectors.byClassName;
 
-public class UpperMusicToolBar {
+ public class UpperMusicToolBar {
 
     private static SelenideElement rootElem;
 
@@ -39,11 +39,7 @@ public class UpperMusicToolBar {
     }
 
     public void findTrack(String trackName) {
-        rootElem.$(INPUT_FIELD).setValue(trackName);
-        try {
-            Thread.sleep(500);     // 'search' icon changes too fast :(
-        } catch (Exception e) {}
-        rootElem.$(INPUT_FIELD).pressEnter();
+        rootElem.$(INPUT_FIELD).setValue(trackName).pressEnter();
     }
 
     public void clearSearchField() {

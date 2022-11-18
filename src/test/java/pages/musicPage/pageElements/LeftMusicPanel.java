@@ -1,12 +1,11 @@
-package pages.musicPage;
+package pages.musicPage.pageElements;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selectors.byClassName;
+import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LeftMusicPanel {
@@ -34,7 +33,6 @@ public class LeftMusicPanel {
     }
 
     public ElementsCollection getMyAlbums() {
-
         if (!$(byClassName("submenu")).isDisplayed()) {
             $(MY_MSC_BTN).click();
         }
@@ -44,5 +42,4 @@ public class LeftMusicPanel {
     public void goToFirstLibraryAlbum() {
         rootElem.$(byAttribute("data-tsid", "playlist_item")).click();
     }
-
 }

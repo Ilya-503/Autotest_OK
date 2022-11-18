@@ -1,8 +1,7 @@
-package pages.musicPage;
+package pages.musicPage.factories;
 
-import com.codeborne.selenide.SelenideElement;
-
-import static com.codeborne.selenide.Condition.text;
+import pages.musicPage.pageElements.MyAlbumPanel;
+import pages.musicPage.pageElements.OtherAlbumPanel;
 
 public class AlbumPanelFactory {
 
