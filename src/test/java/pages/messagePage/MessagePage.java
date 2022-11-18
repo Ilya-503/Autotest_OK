@@ -65,9 +65,7 @@ public class MessagePage implements Loadable {
         }
         ElementsCollection msgElems =
                 $(DIALOG_PANEL).$$(byAttribute("data-tsid", "message_root"));
-        System.out.println(msgElems.size());
         for (var elem: msgElems) {
-            System.out.println(elem.text());
             allMessages.add(new MessageWrapper(elem));
         }
         return allMessages;
