@@ -22,6 +22,7 @@ public class LoginPageTest extends BaseTest {
         loginPage = new LoginPage(URL);
     }
 
+    @Test
     @DisplayName("Вход при пустых полях")
     public void testEmptyFields() {
         loginPage.submit();
