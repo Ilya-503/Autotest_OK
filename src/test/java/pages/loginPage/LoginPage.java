@@ -21,25 +21,27 @@ public class LoginPage implements Loadable {
     }
 
     public LoginPage setLogin(String login) {
+        LOGIN_FILED.shouldBe(visible.because("Нет поля ввода логина")).clear();
         LOGIN_FILED.setValue(login);
         return this;
     }
 
     public LoginPage setPassword(String password) {
+        PASSWORD_FIELD.shouldBe(visible.because("Нет поля ввода пароля")).clear();
         PASSWORD_FIELD.setValue(password);
         return this;
     }
 
     public void submit() {
-        SUBMIT_BTN.click();
+        SUBMIT_BTN.shouldBe(visible.because("Нет кнопки подтверждения")).click();
     }
 
     public String getErrorString() {
-        return LOGIN_ERR_STRING.text();
+        return LOGIN_ERR_STRING.shouldBe(visible.because("Не появляется сообщение с ошибкой")).text();
     }
 
     @Override
     public void validate() {
-        LOGIN_CONTAINER.shouldBe(visible);
+        LOGIN_CONTAINER.shouldBe(visible.because("Не прогрузился контейнер с полями"));
     }
 }
