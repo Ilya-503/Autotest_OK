@@ -16,8 +16,7 @@ public class LoginPage implements Loadable {
     private static final SelenideElement LOGIN_ERR_STRING =
             $x("//div[contains(@class, 'login_error')]");
 
-    public LoginPage(String url) {
-        open(url);
+    public LoginPage() {
         validate();
     }
 

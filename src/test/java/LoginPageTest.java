@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,7 +22,8 @@ public class LoginPageTest extends BaseTest {
 
     @BeforeEach
     public void openBrowser() {
-        loginPage = new LoginPage(URL);
+        open();
+        loginPage = new LoginPage();
     }
 
     @Test
