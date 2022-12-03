@@ -49,7 +49,7 @@ public class MessagePage implements Loadable {
     }
 
     public boolean isEmptyDialog() {
-        return $(EMPTY_DIALOG_WRAP).isDisplayed();
+        return $(EMPTY_DIALOG_WRAP).is(visible);
     }
 
     public void removeAllMessages() {
