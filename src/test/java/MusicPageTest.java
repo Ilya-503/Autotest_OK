@@ -14,7 +14,7 @@ public class MusicPageTest extends BaseTest {
 
     @BeforeEach
     public void prepareTest() {
-        Step.logIn();
+       // Step.logIn();
         musicPage = new MainPage().goToMusicPage();
     }
 

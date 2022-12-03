@@ -1,3 +1,5 @@
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.loginPage.LoginPage;
@@ -6,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,13 +17,12 @@ public class LoginPageTest extends BaseTest {
 
     private static final String LOGIN = "technoPol17";
     private static final String PASSWORD = "technoPolis2022";
-    private static final String URL = "https://ok.ru/";
     private final String TEST_ERR_MSG = "Тип ошибки не совпадает с ожидаемым";
     private String expectedErrorString;
 
     @BeforeEach
     public void openBrowser() {
-        open();
+        Selenide.open(Configuration.baseUrl);
         loginPage = new LoginPage();
     }
 

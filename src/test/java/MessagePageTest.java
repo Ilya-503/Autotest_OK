@@ -15,7 +15,7 @@ public class MessagePageTest extends BaseTest {
 
     @BeforeEach
     public void prepareTest() {
-        Step.logIn();
+        // Step.logIn();
         messagePage = new MainPage().goToDialogs();
     }
 

@@ -9,9 +9,9 @@ public class BaseTest {
     @BeforeAll
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
+        Configuration.driverManagerEnabled = true;
         Configuration.baseUrl = "https://ok.ru/";
         Configuration.browser = "chrome";
-        Configuration.driverManagerEnabled = true;
         Configuration.timeout = 6_000;    // change to local place
     }
 
