@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MessagePageTest extends BaseTest {
 
     MessagePage messagePage;
-    //  private final String
+    private final String DIALOG_PARTNER_NAME = "techno";
+
     @BeforeEach
     public void prepareTest() {
         Step.logIn();
@@ -21,16 +22,16 @@ public class MessagePageTest extends BaseTest {
     @Test
     @DisplayName("Проверка функции удаления сообщения")
     public void testDeleteMessage() {
-        messagePage.goToDialogWith("techno");
+        messagePage.goToDialogWith(DIALOG_PARTNER_NAME);
         int msgAmountBefore = messagePage.countMessages();
         messagePage.sendMessage("Hi, brother!");
         messagePage.deleteMessageWithContentForEveryone("Hi");
-        assertEquals(msgAmountBefore, messagePage.countMessages());
+        assertEquals(msgAmountBefore, messagePage.countMessages(), "Ошибка при удалении сообщения");
     }
 
     @AfterEach
     public void removeAllMessages() {
-        messagePage.goToDialogWith("techno");
+        messagePage.goToDialogWith(DIALOG_PARTNER_NAME);
         messagePage.removeAllMessages();
         Selenide.closeWebDriver();
     }

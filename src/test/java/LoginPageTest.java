@@ -16,7 +16,7 @@ public class LoginPageTest extends BaseTest {
     private static final String LOGIN = "technoPol17";
     private static final String PASSWORD = "technoPolis2022";
     private static final String URL = "https://ok.ru/";
-    private final String testErrorMsg = "Тип ошибки не совпадает с ожидаемым";
+    private final String TEST_ERR_MSG = "Тип ошибки не совпадает с ожидаемым";
     private String expectedErrorString;
 
     @BeforeEach
@@ -29,7 +29,7 @@ public class LoginPageTest extends BaseTest {
     public void testEmptyFields() {
         loginPage.submit();
         expectedErrorString = "Введите логин";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
+        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
     }
 
     @DisplayName("Вход при пустом поле пароля")
@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest {
                 .setLogin(login)
                 .submit();
         expectedErrorString = "Введите пароль";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
+        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class LoginPageTest extends BaseTest {
                 .setPassword("password")
                 .submit();
         expectedErrorString = "Неправильно указан логин и/или пароль";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
+        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
     }
 
     @Test
