@@ -36,7 +36,8 @@ public class MusicPageTest extends BaseTest {
             );
         }
         musicPage.goToLibrary();
-        assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks());
+        assertEquals(Lists.reverse(expectedTracks), musicPage.getMyTracks(),
+                "Треки в библиотеке не совпадают с ожидаемами");
     }
 
     @Test
@@ -52,9 +53,12 @@ public class MusicPageTest extends BaseTest {
         musicPage.goToFirstLibraryAlbum();
 
         assertAll(
-                () -> assertEquals(expectedTitle, musicPage.getAlbumTitle()),
-                () -> assertEquals(expectedTracksAmount, musicPage.getAlbumTracksAmount()),
-                () -> assertEquals(expectedTracks, musicPage.getTracks())
+                () -> assertEquals(expectedTitle, musicPage.getAlbumTitle(),
+                        "Название альбом не совпадает с ожидаемым"),
+                () -> assertEquals(expectedTracksAmount, musicPage.getAlbumTracksAmount(),
+                        "Количество треков не совпадает с ожидаемым"),
+                () -> assertEquals(expectedTracks, musicPage.getTracks(),
+                        "Треки альбома не соотвествуют ожидаемым")
         );
     }
 
