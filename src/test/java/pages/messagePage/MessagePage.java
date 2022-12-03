@@ -20,6 +20,7 @@ public class MessagePage implements Loadable {
     private static final By CHAT_OPTIONS_BTN = byAttribute("data-tsid", "chat_info_button");
     private static final By CLEAR_CHAT_BTN = byAttribute("data-tsid", "clear-chat-history-btn");
     private static final By SUBMIT_BTN = byAttribute("data-tsid", "confirm-primary");
+    private static final By MSG_ELEM = byAttribute("data-tsid", "message_root");
 
     public MessagePage() {
         validate();
@@ -64,7 +65,7 @@ public class MessagePage implements Loadable {
             return allMessages;
         }
         ElementsCollection msgElems =
-                $(DIALOG_PANEL).$$(byAttribute("data-tsid", "message_root"));
+                $(DIALOG_PANEL).$$(MSG_ELEM);
         for (var elem: msgElems) {
             allMessages.add(new MessageWrapper(elem));
         }

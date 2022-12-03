@@ -26,13 +26,15 @@ public class MessageWrapper {
     }
 
     public void deleteMessage() {
+        By checkBoxRemoveForAll = byAttribute("data-tsid", "checkbox_remove_all");
+        By confirmBtnElem = byAttribute("data-tsid", "confirm-primary");
         msgElem.hover().$(OPTIONS_BTN).hover();
         $(DEL_MSG_BTN).click();
         SelenideElement forEveryoneCheck =
-                $(byAttribute("data-tsid", "checkbox_remove_all"));
+                $(checkBoxRemoveForAll);
         if (!forEveryoneCheck.isSelected()) {
             forEveryoneCheck.click();
         }
-        $(byAttribute("data-tsid", "confirm-primary")).click();
+        $(confirmBtnElem).click();
     }
 }
