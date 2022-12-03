@@ -16,6 +16,8 @@ public class LoginPageTest extends BaseTest {
     private static final String LOGIN = "technoPol17";
     private static final String PASSWORD = "technoPolis2022";
     private static final String URL = "https://ok.ru/";
+    private final String testErrorMsg = "Тип ошибки не совпадает с ожидаемым";
+    private String expectedErrorString;
 
     @BeforeEach
     public void openBrowser() {
@@ -26,7 +28,8 @@ public class LoginPageTest extends BaseTest {
     @DisplayName("Вход при пустых полях")
     public void testEmptyFields() {
         loginPage.submit();
-        assertEquals("Введите логин", loginPage.getErrorString());
+        expectedErrorString = "Введите логин";
+        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
     }
 
     @DisplayName("Вход при пустом поле пароля")
@@ -36,7 +39,8 @@ public class LoginPageTest extends BaseTest {
         loginPage
                 .setLogin(login)
                 .submit();
-        assertEquals("Введите пароль", loginPage.getErrorString());
+        expectedErrorString = "Введите пароль";
+        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
     }
 
     @Test
@@ -46,7 +50,8 @@ public class LoginPageTest extends BaseTest {
                 .setLogin(LOGIN)
                 .setPassword("password")
                 .submit();
-        assertEquals("Неправильно указан логин и/или пароль", loginPage.getErrorString());
+        expectedErrorString = "Неправильно указан логин и/или пароль";
+        assertEquals(expectedErrorString, loginPage.getErrorString(), testErrorMsg);
     }
 
     @Test
@@ -57,6 +62,6 @@ public class LoginPageTest extends BaseTest {
                 .setPassword(PASSWORD)
                 .submit();
         MainPage mainPage = new MainPage();
-        assertTrue(mainPage.getNoteFiled().exists());
+        assertTrue(mainPage.getNoteFiled().exists(), "Главная страница не загрузилась");
     }
 }

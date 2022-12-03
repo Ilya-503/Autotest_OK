@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MessagePageTest extends BaseTest {
 
     MessagePage messagePage;
-
+    //  private final String
     @BeforeEach
     public void prepareTest() {
         Step.logIn();
