@@ -16,6 +16,7 @@ public class MainPage implements Loadable {
     private final static  SelenideElement UPPER_TOOL_BAR =
             $(byAttribute("data-l", "t,navigationToolbar"));
 
+
     public MainPage() {
         upperToolBar = new UpperToolBar(UPPER_TOOL_BAR);
         validate();
