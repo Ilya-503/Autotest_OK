@@ -19,6 +19,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class MusicPage implements Loadable {
 
     private static final SelenideElement MSC_PAGE_CONTAINER = $(byClassName("page-container"));
+    private static final SelenideElement LEFT_PANEL_ELEM = $(byAttribute("data-l", "t,menu"));
+    private static final SelenideElement UPPER_TOOLBAR_ELEM = $(byXpath("//header"));
+    private static final By TRACk_ELEM = byTagName("wm-track");
+    private static final By ALBUM_CARD_ELEM = byTagName("wm-track");
+    private static final By EMPTY_TRACKLIST_WRAPPER = byAttribute("data-tsid", "empty_wrapper");
 
     /**
      * Левая панель с кнопками "Популярное", "Моя музыка" и т.д.
@@ -31,8 +36,8 @@ public class MusicPage implements Loadable {
     private static UpperMusicToolBar upperMusicToolBar;
 
     public MusicPage() {
-        leftMusicPanel = new LeftMusicPanel($(byAttribute("data-l", "t,menu")));
-        upperMusicToolBar = new UpperMusicToolBar($(byXpath("//header")));
+        leftMusicPanel = new LeftMusicPanel(LEFT_PANEL_ELEM);
+        upperMusicToolBar = new UpperMusicToolBar(UPPER_TOOLBAR_ELEM);
         validate();
     }
 
@@ -51,8 +56,8 @@ public class MusicPage implements Loadable {
     public List<TrackWrapper> getTracks() {
         By rootElem = byTagName("wm-tracks-list");
         List<TrackWrapper> trackList = new ArrayList<>();
-        $(rootElem).shouldBe(visible);
-        ElementsCollection trackElemColl = $(rootElem).$$(byTagName("wm-track"));
+        $(rootElem).shouldBe(visible.because("Не прогрузилась страница с треками"));
+        ElementsCollection trackElemColl = $(rootElem).$$(TRACk_ELEM);
         for (var elem : trackElemColl) {
             TrackWrapper track = new TrackWrapper(elem);
             trackList.add(track);
@@ -69,12 +74,12 @@ public class MusicPage implements Loadable {
     }
 
     public void goToFirstAlbumAndAddIt() {
-        $(byAttribute("data-tsid", "music_card_wrapper")).click();
+        $(ALBUM_CARD_ELEM).shouldBe(visible.because("Не прогрузились карточки с альбомами")).click();
         ((OtherAlbumPanel) AlbumPanelFactory.getAlbumPanel()).addAlbumToLibrary();
     }
 
     public List<TrackWrapper> getMyTracks() {
-        if ($(byAttribute("data-tsid", "empty_wrapper")).exists()) {
+        if ($(EMPTY_TRACKLIST_WRAPPER).exists()) {
             return new ArrayList<>();
         }
         return getTracks();
@@ -102,12 +107,13 @@ public class MusicPage implements Loadable {
 
     private TrackWrapper addTrack(String trackName) {
         SelenideElement addedMsg = $(byXpath("//*[contains(@data-l, 'similar-tracks')]")); // msg - трек был добавлен
+        SelenideElement closeMsg =  addedMsg.$(byAttribute("data-l", "t,close"));
         List<TrackWrapper> allTracks = getTracks();
         for (var track: allTracks) {
             if (track.getTitle().contains(trackName)) {
                 track.addTrackToLibrary();
-                addedMsg.shouldBe(visible);
-                addedMsg.$(byAttribute("data-l", "t,close")).click();
+                addedMsg.shouldBe(visible.because("Не появилось сообщение о добавлении трека"));
+                closeMsg.shouldBe(visible.because("Нет крестика для закрытия сообщения о добавлении трека")).click();
                 return track;
             }
         }
@@ -131,6 +137,6 @@ public class MusicPage implements Loadable {
 
     @Override
     public void validate() {
-        MSC_PAGE_CONTAINER.shouldBe(visible);
+        MSC_PAGE_CONTAINER.shouldBe(visible.because("Не прогрузился контейнер страницы с музыкой"));
     }
 }
