@@ -1,6 +1,8 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
@@ -8,6 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
+import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,42 +23,32 @@ public class LoginPageTest extends BaseTest {
     private static final String LOGIN = "technoPol17";
     private static final String PASSWORD = "technoPolis2022";
     private final String TEST_ERR_MSG = "Тип ошибки не совпадает с ожидаемым";
-    private String expectedErrorString;
 
     @BeforeEach
     public void openBrowser() {
-        Selenide.open(Configuration.baseUrl);
+        open(Configuration.baseUrl);
         loginPage = new LoginPage();
     }
 
-    @Test
-    @DisplayName("Вход при пустых полях")
-    public void testEmptyFields() {
-        loginPage.submit();
-        expectedErrorString = "Введите логин";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
-    }
 
-    @DisplayName("Вход при пустом поле пароля")
-    @ParameterizedTest
-    @ValueSource(strings = {"someLogin", LOGIN})
-    public void testEmptyPasswordField(String login) {
+    @DisplayName("Вход при различных недопустимых значениях в полях")
+    @ParameterizedTest(name = "login = {0}, psw = {1}, err = {2}")
+    @MethodSource("provideInvalidLoginParams")
+    public void testIllegalFieldsValues(String login, String password, String expectedErrorStr) {
         loginPage
                 .setLogin(login)
+                .setPassword(password)
                 .submit();
-        expectedErrorString = "Введите пароль";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
+        assertEquals(expectedErrorStr, loginPage.getErrorString(), TEST_ERR_MSG);
     }
 
-    @Test
-    @DisplayName("Вход при неверных данных")
-    public void testIllegalPassword() {
-        loginPage
-                .setLogin(LOGIN)
-                .setPassword("password")
-                .submit();
-        expectedErrorString = "Неправильно указан логин и/или пароль";
-        assertEquals(expectedErrorString, loginPage.getErrorString(), TEST_ERR_MSG);
+    private static Stream<Arguments> provideInvalidLoginParams() {
+        return Stream.of(
+                Arguments.of(null, null, "Введите логин"),
+                Arguments.of("login", null, "Введите пароль"),
+                Arguments.of(LOGIN, null, "Введите пароль"),
+                Arguments.of(LOGIN, "password", "Неправильно указан логин и/или пароль")
+        );
     }
 
     @Test
