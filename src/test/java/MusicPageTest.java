@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.*;
@@ -7,7 +6,6 @@ import pages.musicPage.MusicPage;
 import pages.musicPage.wrappers.TrackWrapper;
 import java.util.*;
 
-import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicPageTest extends BaseTest {
