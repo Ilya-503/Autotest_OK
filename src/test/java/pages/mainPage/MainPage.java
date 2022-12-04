@@ -1,11 +1,13 @@
 package pages.mainPage;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import pages.Loadable;
 import pages.messagePage.MessagePage;
 import pages.musicPage.MusicPage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,6 +18,7 @@ public class MainPage implements Loadable {
     private final static By NOTE_FIELD = byText("Напишите заметку");
     private final static By UPPER_TOOL_BAR =
             byAttribute("data-l", "t,navigationToolbar");
+    private final static By LEFT_NAVIGATE_PANEL = byAttribute("data-l", "t,navigation");
 
 
     public MainPage() {
@@ -40,5 +43,6 @@ public class MainPage implements Loadable {
     @Override
     public void validate() {
         upperToolBar.isVisible();
+        $(LEFT_NAVIGATE_PANEL).is(visible.because("Не прогрузилась леваяя панель навигации"));
     }
 }

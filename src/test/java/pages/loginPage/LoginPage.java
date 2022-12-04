@@ -1,6 +1,5 @@
 package pages.loginPage;
 
-import com.codeborne.selenide.*;
 import org.openqa.selenium.By;
 import pages.Loadable;
 
