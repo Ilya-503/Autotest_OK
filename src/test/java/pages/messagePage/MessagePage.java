@@ -27,11 +27,15 @@ public class MessagePage implements Loadable {
     }
 
     public void goToDialogWith(String friendName) {
-        $(CHATS_LIST).$(withTextCaseInsensitive(friendName)).click();
+        $(CHATS_LIST).$(withTextCaseInsensitive(friendName)).
+                shouldBe(visible.because(String.format("Нет активного диалога с %s", friendName)))
+                .click();
     }
 
     public void sendMessage(String message) {
-        $(INPUTE_FIELD).setValue(message).pressEnter();
+        $(INPUTE_FIELD).shouldBe(visible.because("Нет поля для ввода сообщения"))
+                .setValue(message)
+                .pressEnter();
     }
 
     public int countMessages() {
@@ -54,9 +58,9 @@ public class MessagePage implements Loadable {
     }
 
     public void removeAllMessages() {
-        $(CHAT_OPTIONS_BTN).click();
-        $(CLEAR_CHAT_BTN).click();
-        $(SUBMIT_BTN).click();
+        $(CHAT_OPTIONS_BTN).shouldBe(visible.because("Нет кнопки настройки чаиа")).click();
+        $(CLEAR_CHAT_BTN).shouldBe(visible.because("Нет кнопки очистки чата")).click();
+        $(SUBMIT_BTN).shouldBe(visible.because("Нет кнопки подтверждения очистки чата")).click();
     }
 
     private List<MessageWrapper> getAllMessages() {
@@ -74,6 +78,6 @@ public class MessagePage implements Loadable {
 
     @Override
     public void validate() {
-        $(CHATS_LIST).shouldBe(visible);
+        $(CHATS_LIST).shouldBe(visible.because("Не прогрузился список диалогов"));
     }
 }
