@@ -3,6 +3,7 @@ package pages.messagePage;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -18,7 +19,7 @@ public class MessageWrapper {
 
     MessageWrapper(SelenideElement msgElem) {
         this.msgElem = msgElem;
-        text = $(TEXT_ELEM).text();
+        text = $(TEXT_ELEM).shouldBe(visible.because("Нет элемента с текстом сообщения")).text();
     }
 
     public String getText() {
@@ -29,12 +30,13 @@ public class MessageWrapper {
         By checkBoxRemoveForAll = byAttribute("data-tsid", "checkbox_remove_all");
         By confirmBtnElem = byAttribute("data-tsid", "confirm-primary");
         msgElem.hover().$(OPTIONS_BTN).hover();
-        $(DEL_MSG_BTN).click();
+        $(DEL_MSG_BTN).shouldBe(visible.because("Нет кнопки удаления сообщения")).click();
         SelenideElement forEveryoneCheck =
                 $(checkBoxRemoveForAll);
+        forEveryoneCheck.shouldBe(visible.because("Нет опции выбора удаления сообщения для всех пользователей"));
         if (!forEveryoneCheck.isSelected()) {
             forEveryoneCheck.click();
         }
-        $(confirmBtnElem).click();
+        $(confirmBtnElem).shouldBe(visible.because("Нет кнопки подтверждения удаления сообщения")).click();
     }
 }
