@@ -22,7 +22,7 @@ public class MusicPage implements Loadable {
     private static final SelenideElement LEFT_PANEL_ELEM = $(byAttribute("data-l", "t,menu"));
     private static final SelenideElement UPPER_TOOLBAR_ELEM = $(byXpath("//header"));
     private static final By TRACk_ELEM = byTagName("wm-track");
-    private static final By ALBUM_CARD_ELEM = byTagName("wm-track");
+    private static final By ALBUM_CARD_ELEM = byAttribute("data-tsid", "music_card_wrapper");
     private static final By EMPTY_TRACKLIST_WRAPPER = byAttribute("data-tsid", "empty_wrapper");
 
     /**
