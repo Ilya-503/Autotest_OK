@@ -42,7 +42,7 @@ public class MusicPage implements Loadable {
     }
 
     public void findTrack(String trackName) {
-        upperMusicToolBar.clearSearchField();
+        // upperMusicToolBar.clearSearchField();
         upperMusicToolBar.findTrack(trackName);
     }
 

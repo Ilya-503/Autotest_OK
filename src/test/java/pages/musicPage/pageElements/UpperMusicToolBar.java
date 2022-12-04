@@ -1,8 +1,10 @@
 package pages.musicPage.pageElements;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byClassName;
 
@@ -39,11 +41,12 @@ import static com.codeborne.selenide.Selectors.byClassName;
     }
 
     public void findTrack(String trackName) {
-        rootElem.$(INPUT_FIELD).setValue(trackName).pressEnter();
-    }
-
-    public void clearSearchField() {
-        rootElem.$(INPUT_FIELD).clear();
+        rootElem.$(INPUT_FIELD)
+                .shouldBe(visible.because("Нет поля для ввода названия трека"))
+                .clear();
+        rootElem.$(INPUT_FIELD)
+                .setValue(trackName)
+                .pressEnter();
     }
 }
 
