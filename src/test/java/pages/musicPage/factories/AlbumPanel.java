@@ -3,6 +3,7 @@ package pages.musicPage.factories;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -22,16 +23,22 @@ abstract public class AlbumPanel {
     abstract public void removeAlbum();
 
     public static boolean isOwnAlbum() {
-        return !(ROOT_ELEM.innerText().contains("Добав"));
+        return !(ROOT_ELEM.shouldBe(visible.because("Нет панели альбома на странице"))
+                .innerText()
+                .contains("Добав"));
     }
 
     public String getTitle() {
-        return ROOT_ELEM.$(TITLE_ELEM).text();
+        return ROOT_ELEM.$(TITLE_ELEM)
+                .shouldBe(visible.because("Нет элемента названия альбома"))
+                .text();
     }
 
     public int getTracksAmount() {
         return Integer.parseInt(
-                ROOT_ELEM.$(SONG_AMOUNT_ELEM).text().split(" ")[0]
+                ROOT_ELEM.$(SONG_AMOUNT_ELEM)
+                        .shouldBe(visible.because("Нет элемента с кол-вом треков альбома"))
+                        .text().split(" ")[0]
         );
     }
 }
