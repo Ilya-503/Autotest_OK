@@ -9,7 +9,6 @@ import pages.musicPage.wrappers.TrackWrapper;
 import pages.musicPage.factories.AlbumPanelFactory;
 import pages.musicPage.pageElements.LeftMusicPanel;
 import pages.musicPage.pageElements.OtherAlbumPanel;
-
 import java.util.ArrayList;
 import java.util.List;
 
