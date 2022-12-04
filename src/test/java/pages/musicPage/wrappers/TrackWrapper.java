@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import java.util.Arrays;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byClassName;
 
@@ -22,8 +23,9 @@ public class TrackWrapper {
 
     public TrackWrapper(SelenideElement trackElem) {
         this.trackElem = trackElem;
-        title = trackElem.$(TITLE_ELEM).text();
-        artist = trackElem.$(ARTIST_ELEM).text();
+        title = trackElem.$(TITLE_ELEM).shouldBe(visible.because("Нет элемента с названием трека")).text();
+        artist = trackElem.$(ARTIST_ELEM).shouldBe(visible.because("Нет элемента с автором трека")).text();
+        trackElem.$(DURATION_ELEM).shouldBe(visible.because("Нет элемента с продолжит. трека"));
         int[] durationInfo = Arrays.stream(trackElem.$(DURATION_ELEM)
                 .text().split(":"))
                 .mapToInt(Integer::parseInt).toArray();
@@ -31,13 +33,15 @@ public class TrackWrapper {
     }
 
     public void addTrackToLibrary() {
-        trackElem.hover().$(ADD_BTN).click();
-
-
+        trackElem.hover().$(ADD_BTN)
+                .shouldBe(visible.because("Нет кнопки добавления трека в библиотеку"))
+                .click();
     }
 
     public void removeTrackFromLibrary() {
-        trackElem.hover().$(REMOVE_BTN).click();
+        trackElem.hover().$(REMOVE_BTN)
+                .shouldBe(visible.because("Нет кнопки удаления трека из библиотеки"))
+                .click();
     }
 
     public String getTitle() {
