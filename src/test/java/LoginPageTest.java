@@ -7,7 +7,6 @@ import pages.mainPage.MainPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selenide.open;
