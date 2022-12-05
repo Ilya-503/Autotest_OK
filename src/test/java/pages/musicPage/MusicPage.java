@@ -65,8 +65,9 @@ public class MusicPage implements Loadable {
         return trackList;
     }
 
-    public void goToLibrary() {
+    public MusicPage goToLibrary() {
         leftMusicPanel.goToLibrary();
+        return this;
     }
 
     public void goToAlbums() {

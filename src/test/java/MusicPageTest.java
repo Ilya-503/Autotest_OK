@@ -49,8 +49,7 @@ public class MusicPageTest extends BaseTest {
         String expectedTitle = musicPage.getAlbumTitle();
         int expectedTracksAmount = musicPage.getAlbumTracksAmount();
 
-        musicPage.goToLibrary();
-        musicPage.goToFirstLibraryAlbum();
+        musicPage.goToLibrary().goToFirstLibraryAlbum();
 
         assertAll(
                 () -> assertEquals(expectedTitle, musicPage.getAlbumTitle(),
@@ -64,8 +63,7 @@ public class MusicPageTest extends BaseTest {
 
     @AfterEach
     public void clearLibrary() {
-        musicPage.goToLibrary();
-        musicPage.clearLibrary();
+        musicPage.goToLibrary().clearLibrary();
         Selenide.closeWebDriver(); // del repeat
     }
 }
