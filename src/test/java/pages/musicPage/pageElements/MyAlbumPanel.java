@@ -1,6 +1,5 @@
 package pages.musicPage.pageElements;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import pages.musicPage.factories.AlbumPanel;
 

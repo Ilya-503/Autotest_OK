@@ -22,9 +22,10 @@ public class MessagePageTest extends BaseTest {
     @Test
     @DisplayName("Проверка функции удаления сообщения")
     public void testDeleteMessage() {
+        String msgToSend = "Hi, brother!";
         messagePage.goToDialogWith(DIALOG_PARTNER_NAME);
         int msgAmountBefore = messagePage.countMessages();
-        messagePage.sendMessage("Hi, brother!");
+        messagePage.sendMessage(msgToSend);
         messagePage.deleteMessageWithContentForEveryone("Hi");
         assertEquals(msgAmountBefore, messagePage.countMessages(), "Ошибка при удалении сообщения");
     }
