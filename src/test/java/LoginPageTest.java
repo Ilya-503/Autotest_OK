@@ -1,12 +1,11 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.loginPage.LoginPage;
 import pages.mainPage.MainPage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -28,6 +27,7 @@ public class LoginPageTest extends BaseTest {
     }
 
 
+    @Tag("Login test")
     @DisplayName("Вход при различных недопустимых значениях в полях")
     @ParameterizedTest(name = "login = {0}, psw = {1}, err = {2}")
     @MethodSource("provideInvalidLoginParams")
@@ -48,6 +48,7 @@ public class LoginPageTest extends BaseTest {
         );
     }
 
+    @Tag("Login test")
     @Test
     @DisplayName("Вход при правильных данных")
     public void testLegalLogin() {

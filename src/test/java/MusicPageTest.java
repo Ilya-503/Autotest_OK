@@ -40,6 +40,7 @@ public class MusicPageTest extends BaseTest {
                 "Треки в библиотеке не совпадают с ожидаемами");
     }
 
+    @Tag("Music test")
     @Test
     @DisplayName("Проверка добавления альбома в библиотеку")
     public void addAlbumToLibrary() {

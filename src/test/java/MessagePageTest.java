@@ -1,8 +1,5 @@
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pages.mainPage.MainPage;
 import pages.messagePage.MessagePage;
 
@@ -15,10 +12,11 @@ public class MessagePageTest extends BaseTest {
 
     @BeforeEach
     public void prepareTest() {
-        logIn();
+        logIn(); // enter with API
         messagePage = new MainPage().goToDialogs();
     }
 
+    @Tag("Message Test")
     @Test
     @DisplayName("Проверка функции удаления сообщения")
     public void testDeleteMessage() {

@@ -34,9 +34,9 @@ public class MessageWrapper {
         SelenideElement forEveryoneCheck =
                 $(checkBoxRemoveForAll);
         forEveryoneCheck.shouldBe(visible.because("Нет опции выбора удаления сообщения для всех пользователей"));
-        if (!forEveryoneCheck.isSelected()) {
-            forEveryoneCheck.click();
-        }
+//        if (!forEveryoneCheck.isSelected()) {
+//            forEveryoneCheck.click();
+//        }
         $(confirmBtnElem).shouldBe(visible.because("Нет кнопки подтверждения удаления сообщения")).click();
     }
 }
