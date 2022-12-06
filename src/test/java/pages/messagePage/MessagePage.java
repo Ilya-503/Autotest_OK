@@ -48,7 +48,7 @@ public class MessagePage implements Loadable {
             if (msg.getText().contains(content)) {
                 msg.deleteMessage();
                 Selenide.refresh();
-                break; // FIX THIS!
+                break;
             }
         }
     }
