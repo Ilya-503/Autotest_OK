@@ -1,6 +1,8 @@
 import com.codeborne.selenide.Selenide;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.mainPage.MainPage;
 import pages.musicPage.MusicPage;
 import pages.musicPage.wrappers.TrackWrapper;
@@ -8,6 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//@Execution(ExecutionMode.CONCURRENT)
 public class MusicPageTest extends BaseTest {
 
     private MusicPage musicPage;
