@@ -12,11 +12,11 @@ public class MessagePageTest extends BaseTest {
 
     @BeforeEach
     public void prepareTest() {
-        logIn(); // enter with API
+        logIn();
         messagePage = new MainPage().goToDialogs();
     }
 
-    @Tag("Message Test")
+    @Tag("MsgFunc")
     @Test
     @DisplayName("Проверка функции удаления сообщения")
     public void testDeleteMessage() {

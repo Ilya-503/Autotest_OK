@@ -9,6 +9,9 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class BaseTest {
 
+    protected static final String LOGIN = "technoPol17";
+    protected static final String PASSWORD = "technoPolis2022";
+
     @BeforeAll
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -23,6 +26,9 @@ public class BaseTest {
 
     protected void logIn() {
         open(Configuration.baseUrl);
-        Selenide.refresh();
+        new LoginPage()
+                .setLogin(LOGIN)
+                .setPassword(PASSWORD)
+                .submit();
     }
 }

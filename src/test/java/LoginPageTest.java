@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginPageTest extends BaseTest {
 
     private LoginPage loginPage;
-
-    private static final String LOGIN = "technoPol17";
-    private static final String PASSWORD = "technoPolis2022";
     private final String TEST_ERR_MSG = "Тип ошибки не совпадает с ожидаемым";
 
     @BeforeEach
@@ -27,7 +24,7 @@ public class LoginPageTest extends BaseTest {
     }
 
 
-    @Tag("Login test")
+    @Tag("LoginFunc")
     @DisplayName("Вход при различных недопустимых значениях в полях")
     @ParameterizedTest(name = "login = {0}, psw = {1}, err = {2}")
     @MethodSource("provideInvalidLoginParams")
@@ -48,7 +45,7 @@ public class LoginPageTest extends BaseTest {
         );
     }
 
-    @Tag("Login test")
+    @Tag("LoginFunc")
     @Test
     @DisplayName("Вход при правильных данных")
     public void testLegalLogin() {

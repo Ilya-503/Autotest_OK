@@ -18,6 +18,7 @@ public class MusicPageTest extends BaseTest {
         musicPage = new MainPage().goToMusicPage();
     }
 
+    @Tag("MusicFunc")
     @Test
     @DisplayName("Проверка работоспособности добавления треков в библиотеку")
     public void addTracksToLibrary() {
@@ -40,7 +41,7 @@ public class MusicPageTest extends BaseTest {
                 "Треки в библиотеке не совпадают с ожидаемами");
     }
 
-    @Tag("Music test")
+    @Tag("MusicFunc")
     @Test
     @DisplayName("Проверка добавления альбома в библиотеку")
     public void addAlbumToLibrary() {
